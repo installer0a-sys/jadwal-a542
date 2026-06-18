@@ -1,6 +1,6 @@
 {
-  "name": "Dashboard Instalasi",
-  "short_name": "Dashboard",
+  "name": "Jadwal A542",
+  "short_name": "Jadwal",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
