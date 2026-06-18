@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard Instalasi</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a73e8">
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
+        iframe { width: 100%; height: 100%; border: none; margin: 0; padding: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- JALUR PINTAS: Langsung tembak ke Apps Script tanpa lewat Google Sites -->
+    <!-- Tempel link /exec Apps Script Anda di bawah ini -->
+    <iframe src="https://script.google.com/macros/s/AKfycbx33Eowttvf-p-r5HVjK25K55fzNLNFUdO2fLxGXvpW5R02sHoydqdF7d-y5l94TnDSlg/exec"></iframe>
+
+    <script>
+        // Pendaftaran Service Worker dengan fitur pengusir cache otomatis
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    // Cek update file sw.js di GitHub secara berkala setiap kali aplikasi dibuka
+                    reg.update(); 
+                    
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // Jika terdeteksi perubahan di GitHub, aplikasi langsung refresh otomatis
+                                window.location.reload();
+                            }
+                        });
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+</html>
